@@ -1,8 +1,10 @@
 package guevara.valentin.tp2_android;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -75,14 +77,16 @@ public class MainActivity extends AppCompatActivity {
         valid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((!masc.isChecked() && !fem.isChecked()) || nom.getText().toString() == "" || prenom.getText().toString() == "" || dateNaiss.getText().toString() == "" || mail.getText().toString() == ""){
+                if((!masc.isChecked() && !fem.isChecked()) || nom.getText().toString().equals("") || prenom.getText().toString().equals("") || numero.getText().toString().equals("") || dateNaiss.getText().toString().equals("")  || mail.getText().toString().equals("")){
                     //nom.setText(prenom.getText().toString());
                     new AlertDialog.Builder(MainActivity.this)
                             .setTitle("Remplir tous les champs")
                             .setMessage("Il est impossible de laisser des champs vides")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
+                                    Intent myIntent = new Intent(MainActivity.this, ActivityB.class);
+                                    myIntent.putExtra("nom", nom.getText().toString());
+                                    startActivity(myIntent);
                                 }
                             })
                             .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -98,4 +102,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
